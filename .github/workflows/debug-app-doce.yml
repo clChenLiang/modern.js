@@ -71,12 +71,13 @@ jobs:
         if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
         run: cd ./tests/node_modules/puppeteer && npm run postinstall && cd ../..
 
-      - name: Test
-        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
-        run: cd ./tests && pnpm run test
-
       - name: upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: my-artifacts
           path: .\tests\integration\app-document\node_modules\.modern-js
+
+      - name: Test
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: cd ./tests && pnpm run test
+
